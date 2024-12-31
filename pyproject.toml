@@ -1,0 +1,32 @@
+[project]
+name = "ocr-transformer-usage"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "pavan", email = "pavankris@gmail.com" }
+]
+dependencies = [
+    "fastapi>=0.115.6",
+    "uvicorn>=0.34.0",
+    "pyautogui>=0.9.54",
+    "requests>=2.32.3",
+    "jinja2>=3.1.5",
+    "pillow>=11.0.0",
+    "python-dotenv>=1.0.1",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ocr_transformer_usage"]

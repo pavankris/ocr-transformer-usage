@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot App</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+        }
+        .image-container, .labels-container {
+            width: 45%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+    </style>
+    <script>
+        async function takeScreenshot() {
+            try {
+                const response = await fetch('/take-screenshot', { method: 'POST' });
+                const data = await response.json();
+
+                if (data.status === "success") {
+                    // Update the image
+                    const imgElement = document.getElementById("labeled-img");
+                    imgElement.src = "data:image/png;base64," + data.labeled_img;
+
+                    // Update the labels
+                    const labelsElement = document.getElementById("labels");
+                    labelsElement.textContent = JSON.stringify(data.labels, null, 4);
+
+                    alert("Screenshot processed successfully!");
+                } else {
+                    alert("Error: " + data.detail);
+                }
+            } catch (error) {
+                alert("An error occurred: " + error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Take Screenshot and Parse</h1>
+    <button onclick="takeScreenshot()">Take Screenshot</button>
+
+    <div class="container">
+        <!-- Image Container -->
+        <div class="image-container">
+            <h2>Labeled Image</h2>
+            <img id="labeled-img" alt="Labeled Image will appear here">
+        </div>
+
+        <!-- Labels Container -->
+        <div class="labels-container">
+            <h2>Labels</h2>
+            <pre id="labels">Labels will appear here...</pre>
+        </div>
+    </div>
+</body>
+</html>
