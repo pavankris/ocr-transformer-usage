@@ -1,6 +1,5 @@
 # ocr-transformer-usage
 
-Describe your project here.
 This simple code opens a web page to take screenshot. Clicking on takescreen shot , waits for 5 secs then grabs the current screenshot calls a GCP(or external) hosted Omniparser and grabs the output of various detection.
 
 For deploying omniparser , i did following
